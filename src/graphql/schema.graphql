@@ -1,0 +1,82 @@
+"""
+This is the root type
+"""
+type Query {
+  hello: String!
+  getPeople(name: String!, age: Int!): String
+  getInt: Int
+  getString: String
+  getFloat: Float
+  getBoolean: Boolean
+  getId: ID
+  getArray(numbers: [Int!]!): [String]
+  products: [Product!]!
+  product(id: ID!): Product!
+  category(id:ID!): Category
+}
+
+"""
+This is the root mutation type
+"""
+type Mutation {
+  login(email:EmailAddress!, password:String!): AuthResponse
+  addProduct(dto: CreateProductInput): Product!
+  updateProduct(id: ID!, dto: UpdateProductInput): Product
+  deleteProduct(id: ID!): ID!
+  addCategory(dto: CreateCategoryInput): Category
+}
+
+"""
+This is the product type
+"""
+type Product {
+  id: ID!
+  name: String!
+  price: Float!
+  description: String!
+  image: String!
+  createdAt: String!
+  categoryId: ID!
+  category: Category!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  image: String!
+  products: [Product!]!
+}
+
+type AuthResponse {
+  access_token: String!
+  user: User!
+}
+type User {
+  id: ID!
+  email: String!
+  role: String!
+  createdAt: String!
+}
+
+input CreateProductInput {
+  name: String!
+  price: Int!
+  description: String!
+  image: String!
+  categoryId: ID!
+}
+
+input UpdateProductInput {
+  name: String
+  price: Int
+  description: String
+  image: String
+  categoryId: ID
+}
+
+input CreateCategoryInput {
+  name: CategoryNameType!
+  image: URL!
+}
+
+scalar CategoryNameType
